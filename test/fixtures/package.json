@@ -1,0 +1,12 @@
+{
+  "name": "conventional-changelog-artear-demo",
+  "version": "1.3.3",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Artear/my-repo-with-changelog.git"
+  },
+  "jira": {
+    "url": "https://my-organization.atlassian.net/",
+    "projectId": "PROJ"
+  }
+}
