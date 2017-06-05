@@ -17,10 +17,9 @@ betterThanBefore.setups([
     shell.mkdir('tmp');
     shell.cd('tmp');
     shell.mkdir('git-templates');
-    shell.exec('git init --template=./git-templates');
-
-    gitDummyCommit('chore: first commit');
-    gitDummyCommit(['[PROJ-1000] feat: amazing new module', 'BREAKING CHANGE: Not backward compatible.']);
+    shell.exec('git config user.name "Test"');
+    shell.exec('git config user.email "dummy@test.com"');
+    
     gitDummyCommit(['[PROJ-1001] fix: avoid a bug', 'BREAKING CHANGE: The Change is huge #1.']);
     gitDummyCommit(['perf: make it faster', ' closes #1002, #1003']);
     gitDummyCommit('revert: bad commit');
