@@ -1,8 +1,6 @@
 #  [![CircleCI][circle-badge]][circle-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
-> [conventional-changelog](https://github.com/ajoslin/conventional-changelog) [angular](https://github.com/angular/angular) preset
-
-See parent [convention](convention.md)
+> [conventional-changelog](https://github.com/ajoslin/conventional-changelog) Artear preset
 
 ## Installation
 
