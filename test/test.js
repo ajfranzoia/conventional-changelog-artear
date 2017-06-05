@@ -18,6 +18,8 @@ betterThanBefore.setups([
     shell.cd('tmp');
     shell.mkdir('git-templates');
     shell.exec('git init --template=./git-templates');
+    shell.exec('git config user.name "Test"');
+    shell.exec('git config user.email "dummy@test.com"');
 
     gitDummyCommit('chore: first commit');
     gitDummyCommit(['[PROJ-1000] feat: amazing new module', 'BREAKING CHANGE: Not backward compatible.']);
