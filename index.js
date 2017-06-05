@@ -43,7 +43,14 @@ var writerOpts = {
       note.title = 'BREAKING CHANGES';
     });
 
-    commit.type = commit.type.toLowerCase();
+    if (!commit.type && commit.gitTags) {
+      return;
+    }
+
+    if (commit.type) {
+      commit.type = commit.type.toLowerCase();
+    }
+
     if (['feat', 'add', 'change', 'remove'].indexOf(commit.type) !== -1) {
       commit.type = 'Features';
     } else if (commit.type === 'fix') {
@@ -58,7 +65,7 @@ var writerOpts = {
       commit.type = 'Styles';
     } else if (commit.type === 'refactor') {
       commit.type = 'Code Refactoring';
-    } else if (commit.type === 'test') {
+    } else if (commit.type === 'test' || commit.type === 'tests') {
       commit.type = 'Tests';
     } else if (commit.type === 'chore') {
       commit.type = 'Chores';
