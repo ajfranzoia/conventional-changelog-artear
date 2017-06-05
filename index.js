@@ -43,7 +43,8 @@ var writerOpts = {
       note.title = 'BREAKING CHANGES';
     });
 
-    if (commit.type === 'feat') {
+    commit.type = commit.type.toLowerCase();
+    if (['feat', 'add', 'change', 'remove'].indexOf(commit.type) !== -1) {
       commit.type = 'Features';
     } else if (commit.type === 'fix') {
       commit.type = 'Bug Fixes';

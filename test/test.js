@@ -1,5 +1,5 @@
 'use strict';
-var execSync = require('child_process').execSync;
+
 var conventionalChangelogCore = require('conventional-changelog-core');
 var preset = require('../');
 var expect = require('chai').expect;
@@ -54,6 +54,18 @@ betterThanBefore.setups([
   function() {
     shell.exec('git tag v1.4.0');
     gitDummyCommit('feat: some more features');
+  },
+  // Setup 8
+  function() {
+    gitDummyCommit(['add: include missing type']);
+    gitDummyCommit(['change: update users API token']);
+    gitDummyCommit(['remove: external API no longer supported']);
+  },
+  // Setup 9
+  function() {
+    gitDummyCommit(['TEST: add new tests']);
+    gitDummyCommit(['Chore: update package.json version']);
+    gitDummyCommit(['FEat: created new users module']);
   }
 ]);
 
@@ -201,6 +213,43 @@ describe('Artear preset', function() {
         cb();
       }, function() {
         expect(i).to.equal(1);
+        done();
+      }));
+  });
+
+  it('should work for commits using types "add", "change" and "remove" instead of "feat"', function(done) {
+    preparing(8);
+
+    conventionalChangelogCore(getDefaultConfig())
+      .on('error', function(err) {
+        done(err);
+      })
+      .pipe(through(function(chunk, enc, cb) {
+        chunk = chunk.toString();
+
+        expect(chunk).to.include('Features');
+        expect(chunk).to.include('* include missing type');
+        expect(chunk).to.include('* update users API token');
+        expect(chunk).to.include('* external API no longer supported');
+
+        done();
+      }));
+  });
+
+  it('should properly detected type even if it\'s not in lowercase', function(done) {
+    preparing(9);
+
+    conventionalChangelogCore(getDefaultConfig())
+      .on('error', function(err) {
+        done(err);
+      })
+      .pipe(through(function(chunk, enc, cb) {
+        chunk = chunk.toString();
+
+        expect(chunk).to.include('Features');
+        expect(chunk).to.include('Tests');
+        expect(chunk).to.include('Chores');
+
         done();
       }));
   });
